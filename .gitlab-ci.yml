@@ -1,0 +1,7 @@
+---
+markdownlint:
+  image: pipelinecomponents/markdownlint:latest
+  before_script:
+    - mdl --version
+  script:
+    - mdl --style all --warnings .

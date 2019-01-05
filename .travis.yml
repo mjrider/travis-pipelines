@@ -17,6 +17,12 @@ jobs:
         - docker run -v $(pwd):/code pipelinecomponents/php-linter:latest parallel-lint --colors .
     - script:
         - docker run -v $(pwd):/code pipelinecomponents/stylelint:latest stylelint --color '**/*.css'
+    - before_script:
+        - docker info
+        - sudo wget -O /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64
+        - chmod a+rx /usr/local/bin/gitlab-runner
+      script:
+        - gitlab-runner exec markdownlint
     - script:
         - docker run -v $(pwd):/code pipelinecomponents/php-codesniffer:latest phpcs -s -p --colors --extensions=php --standard=PSR12 .
     - stage: security
