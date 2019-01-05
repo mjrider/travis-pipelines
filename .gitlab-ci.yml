@@ -1,7 +1,14 @@
 ---
 markdownlint:
+  stage: preflight
   image: pipelinecomponents/markdownlint:latest
   before_script:
     - mdl --version
   script:
     - mdl --style all --warnings .
+
+phpcs PSR12:
+  stage: preflight
+  image: pipelinecomponents/php-codesniffer:latest
+  script:
+    - phpcs -s -p --colors --extensions=php --standard=PSR12 .
