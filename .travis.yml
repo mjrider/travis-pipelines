@@ -17,10 +17,13 @@ jobs:
     - stage: lint
       script:
         - docker run -v $(pwd):/code pipelinecomponents/php-linter:latest parallel-lint --colors .
+
+    # 2 ways to run the same command
     - script:
-        # 2 ways to run the same command
         - gitlab-runner exec docker 'phpcs PSR12'
+    - script:
         - docker run -v $(pwd):/code pipelinecomponents/php-codesniffer:latest phpcs -s -p --colors --extensions=php --standard=PSR12 .
+
     - script:
         - docker run -v $(pwd):/code pipelinecomponents/stylelint:latest stylelint --color '**/*.css'
     - script:
