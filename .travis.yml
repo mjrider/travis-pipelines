@@ -5,6 +5,7 @@ services:
 
 stages:
   - lint
+  - qa
   - security
 
 before_install:
@@ -14,20 +15,27 @@ before_install:
 
 jobs:
   include:
-    - stage: lint
+    - name: php linting
+      stage: lint
       script:
         - docker run -v $(pwd):/code pipelinecomponents/php-linter:latest parallel-lint --colors .
 
     # 2 ways to run the same command
-    - script:
+    - name: phpcs PSR12 gitlab style
+      stage: qa
+      script:
         - gitlab-runner exec docker 'phpcs PSR12'
-    - script:
+    - name: phpcs PSR12 docker style
+      stage: qa
+      script:
         - docker run -v $(pwd):/code pipelinecomponents/php-codesniffer:latest phpcs -s -p --colors --extensions=php --standard=PSR12 .
-
-    - script:
+    - name: Stylelint
+      script:
         - docker run -v $(pwd):/code pipelinecomponents/stylelint:latest stylelint --color '**/*.css'
-    - script:
+    - name: markdown lint
+      script:
         - gitlab-runner exec docker markdownlint
-    - stage: security
+    - name: security checker
+      stage: security
       script:
         - docker run -v $(pwd):/code pipelinecomponents/php-security-checker:latest security-checker security:check composer.lock
