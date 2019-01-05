@@ -20,7 +20,7 @@ jobs:
     - before_script:
         - docker info
         - sudo wget -O /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64
-        - chmod a+rx /usr/local/bin/gitlab-runner
+        - sudo chmod a+rx /usr/local/bin/gitlab-runner
       script:
         - gitlab-runner exec markdownlint
     - script:
