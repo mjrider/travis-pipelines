@@ -12,5 +12,4 @@ jobs:
     vmImage: 'ubuntu-16.04'
   container: pipelinecomponents/php-linter:latest parallel-lint
   steps:
-    - displayName: php linting
-      script: parallel-lint --colors .
+    - script: parallel-lint --colors .
