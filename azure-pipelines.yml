@@ -1,0 +1,16 @@
+# PHP
+# Test and package your PHP project.
+# Add steps that run tests, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/php
+
+trigger:
+- master
+
+jobs:
+- job: php linting
+  pool:
+    vmImage: 'ubuntu-16.04'
+  container: pipelinecomponents/php-linter:latest parallel-lint
+  steps:
+    - displayName: php linting
+      script: parallel-lint --colors .
