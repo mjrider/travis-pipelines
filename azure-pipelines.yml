@@ -10,7 +10,6 @@ jobs:
 - job: php_linting
   pool:
     vmImage: 'ubuntu-16.04'
-  container: 
-    containerImage: pipelinecomponents/php-linter:latest
+  container: pipelinecomponents/php-linter:latest
   steps:
     - script: parallel-lint --colors .
