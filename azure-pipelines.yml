@@ -7,7 +7,7 @@ trigger:
 - master
 
 jobs:
-- job: php linting
+- job: php-linting
   pool:
     vmImage: 'ubuntu-16.04'
   container: pipelinecomponents/php-linter:latest parallel-lint
